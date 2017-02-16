@@ -1,0 +1,11 @@
+[package]
+name = "smtp2go"
+version = "0.1.0-alpha"
+authors = ["Smtp2go Developers <dev@smtp2go.com>"]
+
+[dependencies]
+
+hyper = "0.10.4"
+hyper-native-tls = "0.2.2"
+regex = "0.2"
+serde_json = "0.9"
