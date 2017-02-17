@@ -1,6 +1,7 @@
 use std::env;
 use std::io::Read;
 use serde_json;
+use serde::Serialize;
 use hyper::client::{Client, Response};
 use hyper::net::HttpsConnector;
 use hyper::header::Headers;
@@ -9,17 +10,9 @@ use hyper_native_tls::NativeTlsClient;
 /// X-Custom header macros for hyper
 header! { (XSmtp2goApi, "X-Smtp2go-Api") => [String] }
 header! { (XSmtp2goApiVersion, "X-Smtp2go-Api-Version") => [String] }
+header! { (XSmtp2goApiKey, "X-Smtp2go-Api-Key") => [String] }
 
-pub trait Smtp2goApiRequest {
-	fn set_api_key(&mut self, api_key: String) -> ();
-	fn to_json(&self) -> String;
-}
-
-#[derive(Debug)]
-struct Smtp2goApi {
-	api_root: String,
-	api_key: String
-}
+pub trait Smtp2goApiRequest: Serialize {}
 
 #[derive(Debug, Deserialize)]
 pub struct Smtp2goApiResponse {
@@ -37,16 +30,6 @@ pub enum Smtp2goApiError {
 }
 
 pub type Smtp2goApiResult = Result<Smtp2goApiResponse, Smtp2goApiError>;
-
-impl Default for Smtp2goApi {
-
- 	fn default() -> Smtp2goApi {
-		Smtp2goApi { 
-			api_root: env::var("SMTP2GO_API_ROOT").unwrap_or("https://api.smtp2go.com/v3".to_string()),
-			api_key: env::var("SMTP2GO_API_KEY").unwrap_or("".to_string())
-		}
-	}
-}
 
 impl Smtp2goApiResponse {
 
@@ -88,28 +71,24 @@ pub fn api_request<T: Into<String>, U: Smtp2goApiRequest>(endpoint: T, request: 
 	let mut headers = Headers::new();
 	headers.set(XSmtp2goApi(String::from("smtp2go.api-rust")).to_owned());
 	headers.set(XSmtp2goApiVersion(String::from(::VERSION)).to_owned());
+	headers.set(XSmtp2goApiKey(String::from(api_key)).to_owned());
 
 	let ssl = NativeTlsClient::new().unwrap();
 	let connector = HttpsConnector::new(ssl);
 	let client = Client::with_connector(connector);
 
-	// set the api key onto the api request
-	request.set_api_key(api_key);
-
 	// serialise the request into a json string
-	let rjson: String = request.to_json();
-	if rjson.is_empty(){ 
-		return Err(Smtp2goApiError::InvalidJSON("Unable to serialise request into valid JSON".to_string()))
-	}
+	let rjson: String = match serde_json::to_string(&request){
+		Ok(val) => val,
+		Err(_) => return Err(Smtp2goApiError::InvalidJSON("Unable to serialise request into valid JSON".to_string()))
+	};
 
 	// create the hyper client
 	let url: String = format!("{}/{}", api_root, endpoint.into());
-	let response =  client.post(&url)
+	match client.post(&url)
 		.body(&rjson)
-		.headers(headers).send();
-
-	match response {
-		Ok(res) => parse_response(res),
-		Err(_) => Err(Smtp2goApiError::RequestError("Somthing went wrong with the request ??".to_string()))
+		.headers(headers).send(){
+			Ok(res) => parse_response(res),
+			Err(err) => Err(Smtp2goApiError::RequestError(format!("Somthing went wrong with the request: {}", err)))
 	}
 }

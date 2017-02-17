@@ -1,9 +1,7 @@
 use super::core::*;
-use serde_json;
 
 #[derive(Serialize, Debug)]
 pub struct Email {
-	api_key: String,
 	#[serde(rename="sender")]
 	from: String,
 	to: Vec<String>,
@@ -12,20 +10,11 @@ pub struct Email {
 	html_body: String
 }
 
-impl super::core::Smtp2goApiRequest for Email {
-	fn set_api_key(&mut self, api_key: String){ self.api_key = api_key; }
-	fn to_json(&self) -> String {
-		match serde_json::to_string(&self){
-			Ok(val) => val,
-			Err(_) => "".to_string()
-		}
-	}
-}
+impl super::core::Smtp2goApiRequest for Email {}
 
 impl Default for Email {
 	fn default() -> Email {
 		Email { 
-			api_key: String::new(),
 			from: String::new(),
 			to: Vec::new(),
 			subject: String::new(),
