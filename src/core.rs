@@ -74,7 +74,7 @@ pub fn api_request<T: Into<String>, U: Smtp2goApiRequest>(endpoint: T, request: 
 
     // create the header payload to
     let mut headers = Headers::new();
-    headers.set(XSmtp2goApi(String::from("smtp2go.api-rust")).to_owned());
+    headers.set(XSmtp2goApi(String::from("smtp2go-rust")).to_owned());
     headers.set(XSmtp2goApiVersion(String::from(::VERSION)).to_owned());
     headers.set(XSmtp2goApiKey(String::from(api_key)).to_owned());
 
