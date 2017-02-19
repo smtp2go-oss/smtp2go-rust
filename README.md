@@ -1,8 +1,10 @@
+[![Crates.io](https://img.shields.io/crates/v/smtp2go.svg)](https://crates.io/crates/smtp2go)
 [![Build Status](https://travis-ci.org/smtp2go/smtp2go.api-rust.svg?branch=master)](https://travis-ci.org/smtp2go/smtp2go.api-rust)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # SMTP2GO API
 
-Rust wrapper over the [SMTP2GO](https://www.smtp2go.com) API.
+Rust wrapper around the SMTP2GO [/email/send](https://apidoc.smtp2go.com/documentation/#/POST%20/email/send) API endpoint.
 
 ## Installation
 
@@ -29,9 +31,9 @@ Then sending mail is as simple as:
 	extern crate smtp2go;
 
 	match smtp2go::Email::new()
-		.from("Goofy <goofy@clubhouse.com>")
+		.from("Test Person <test@example.com>")
 		.to(&[
-			"Mickey <mickey@clubhouse.com>".to_string()
+			"Test Persons Friend <test2@example.com>".to_string()
 		])
 		.subject("Trying out SMTP2Go")
 		.text_body("Test message")
@@ -40,8 +42,6 @@ Then sending mail is as simple as:
 			Err(error) => println!("Message failed: Error: {:?}", error)
 		};
 ```
-
-Full documentation can be found [here](https://apidoc.smtp2go.com/documentation/#/README)
 
 ## Development
 
