@@ -1,7 +1,6 @@
 [![Build Status](https://travis-ci.org/smtp2go/smtp2go.api-rust.svg?branch=master)](https://travis-ci.org/smtp2go/smtp2go.api-rust)
-[![Code Climate](https://codeclimate.com/github/smtp2go/smtp2go.api-rust/badges/gpa.svg)](https://codeclimate.com/github/smtp2go/smtp2go.api-rust)
 
-# SMTP2Go API
+# SMTP2GO API
 
 Rust wrapper over the [SMTP2GO](https://www.smtp2go.com) API.
 
