@@ -5,7 +5,7 @@ version = "0.1.2"
 authors = ["SMTP2GO Developers <devs@smtp2go.com>"]
 description = "SMTP2GO api interface for email sending"
 license = "MIT"
-repository = "https://github.com/smtp2go-os/smtp2go-rust"
+repository = "https://github.com/smtp2go-oss/smtp2go-rust"
 
 include = [
 	"**/*.rs",
