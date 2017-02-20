@@ -1,11 +1,9 @@
 use super::core::*;
 
 #[derive(Serialize, Debug)]
-/// The 'Email' type. See [the module level documentation](index.html) for more info.
 pub struct Email {
 
     #[serde(rename="sender")]
-    /// The senders email address
     from: String,
     to: Vec<String>,
     subject: String,
@@ -58,11 +56,6 @@ impl Email {
         self
     }
 
-    ///
-    /// Perform an api request given the information on self, will
-    /// warn on missing required fields prior to sending
-    /// @return Smtp2goApiResult
-    ///
     pub fn send(&mut self) -> Smtp2goApiResult {
 
     	// from email address is mandatory

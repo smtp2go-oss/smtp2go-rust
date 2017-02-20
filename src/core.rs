@@ -1,4 +1,3 @@
-
 use hyper::client::{Client, Response};
 use hyper::header::Headers;
 use hyper::net::HttpsConnector;
@@ -7,6 +6,7 @@ use serde::Serialize;
 use serde_json;
 use std::env;
 use std::io::Read;
+use regex::Regex;
 
 /// X-Custom header macros for hyper
 header! { (XSmtp2goApi, "X-Smtp2go-Api") => [String] }
@@ -24,6 +24,7 @@ pub struct Smtp2goApiResponse {
 #[derive(Debug)]
 pub enum Smtp2goApiError {
     MissingAPIKey(String),
+    IncorrectAPIKeyFormat(String),
     MissingRequiredField(String),
     RequestError(String),
     EndpointError(String),
@@ -71,6 +72,12 @@ pub fn api_request<T: Into<String>, U: Smtp2goApiRequest>(endpoint: T, request: 
         Ok(api_key) => api_key,
         Err(_) => return Err(Smtp2goApiError::MissingAPIKey("Unable to find an api_key, please set the SMTP2GO_API_KEY environment variable".to_string())),
     };
+
+    // check if the key is correctly formatted prior to the http request
+    let re = Regex::new(r"^api-[a-zA-Z0-9]{32}$").unwrap();
+    if !re.is_match(&api_key){
+        return Err(Smtp2goApiError::IncorrectAPIKeyFormat(format!("The value of SMTP2GO_API_KEY '{}' does not match the api key format of ^api-[a-zA-Z0-9]{{32}}$, please correct it", api_key)))
+    }
 
     // create the header payload to
     let mut headers = Headers::new();

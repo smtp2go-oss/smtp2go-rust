@@ -2,6 +2,10 @@ extern crate smtp2go;
 
 use std::env;
 
+///
+/// This is a helper function used to create an `Email` struct with
+/// correct parameters to make a successfull API request.
+///
 fn send_test_email() -> smtp2go::Smtp2goApiResult {
 
     smtp2go::Email::new()
@@ -13,6 +17,10 @@ fn send_test_email() -> smtp2go::Smtp2goApiResult {
 }
 
 #[test]
+///
+/// Test that an email send call picks up the fact that the 'from' field
+/// is missing
+///
 fn test_missing_from_field() {
 
     // attempt a send, should return Smtp2goError::MissingRequiredField error
@@ -88,13 +96,26 @@ fn test_missing_apikey() {
 }
 
 #[test]
+fn test_invalid_apikey() {
+
+    // remove the api key env if set
+    env::set_var("SMTP2GO_API_KEY", "api-00000000000");
+
+    // send a test email, check it returns failure
+    match send_test_email() {
+        Ok(_) => panic!("Send didn't fail on incorrect ApiKey"),
+        Err(_) => (),
+    }
+}
+
+#[test]
 fn test_send() {
 
     // remove the api key env if set
     env::set_var("SMTP2GO_API_KEY", "api-00000000000000000000000000000000");
 
     match send_test_email() {
-        Ok(_l) => (),
+        Ok(_) => (),
         Err(error) => panic!("Failed to send test email: {:?}", error),
     };
 }

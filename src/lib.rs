@@ -17,5 +17,5 @@ mod core;
 mod email;
 
 // import a few things into the smtp2go module
-pub use core::{Smtp2goApiResult, Smtp2goApiError};
+pub use core::{Smtp2goApiResult, Smtp2goApiResponse, Smtp2goApiError};
 pub use email::Email;
