@@ -1,7 +1,7 @@
 [![Crates.io](https://img.shields.io/crates/v/smtp2go.svg)](https://crates.io/crates/smtp2go)
 [![Build Status](https://travis-ci.org/smtp2go-oss/smtp2go-rust.svg?branch=master)](https://travis-ci.org/smtp2go-oss/smtp2go-rust)
 [![Dependency Status](https://dependencyci.com/github/smtp2go-oss/smtp2go-rust/badge)](https://dependencyci.com/github/smtp2go-oss/smtp2go-rust)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![license](https://img.shields.io/github/license/smtp2go-oss/smtp2go-rust.svg)]()
 
 # SMTP2GO API
 
