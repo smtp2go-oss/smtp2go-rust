@@ -11,7 +11,7 @@ Rust wrapper around the SMTP2GO [/email/send](https://apidoc.smtp2go.com/documen
 
 Add this line to your Cargo.toml in the [dependencies] block
 
-`smtp2go = "0.1.0"`
+`smtp2go = "0.1.4"`
 
 ## Usage
 
