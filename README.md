@@ -32,9 +32,9 @@ Then sending mail is as simple as:
 	extern crate smtp2go;
 
 	match smtp2go::Email::new()
-		.from("Test Person <test@example.com>")
+		.from("Matt <matt@example.com>")
 		.to(&[
-			"Test Persons Friend <test2@example.com>".to_string()
+			"Dave <dave@example.com>".to_string()
 		])
 		.subject("Trying out SMTP2Go")
 		.text_body("Test message")
