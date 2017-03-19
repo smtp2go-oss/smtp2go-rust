@@ -22,7 +22,7 @@ is enabled:
 Once you have an API key you need to export it into the environment where your Rust application is
 going to be executed, this can be done on the terminal like so:
 
-    `$ export API_KEY="<your_API_key>"`
+    `$ export SMTP2GO_API_KEY="<your_API_key>"`
 
 Or alternatively you can set it in code using the `std::env::set_var` function. 
 
