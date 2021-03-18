@@ -1,6 +1,5 @@
 [![Crates.io](https://img.shields.io/crates/v/smtp2go.svg)](https://crates.io/crates/smtp2go)
 [![Build Status](https://travis-ci.org/smtp2go-oss/smtp2go-rust.svg?branch=master)](https://travis-ci.org/smtp2go-oss/smtp2go-rust)
-[![Dependency Status](https://dependencyci.com/github/smtp2go-oss/smtp2go-rust/badge)](https://dependencyci.com/github/smtp2go-oss/smtp2go-rust)
 [![license](https://img.shields.io/github/license/smtp2go-oss/smtp2go-rust.svg)]()
 
 # SMTP2GO API
@@ -11,7 +10,7 @@ Rust wrapper around the SMTP2GO [/email/send](https://apidoc.smtp2go.com/documen
 
 Add this line to your Cargo.toml in the [dependencies] block
 
-`smtp2go = "0.1.4"`
+`smtp2go = "0.1.5"`
 
 ## Usage
 
@@ -29,8 +28,6 @@ Or alternatively you can set it in code using the `std::env::set_var` function.
 Then sending mail is as simple as:
 
 ```
-	extern crate smtp2go;
-
 	match smtp2go::Email::new()
 		.from("Matt <matt@example.com>")
 		.to(&[
@@ -38,7 +35,7 @@ Then sending mail is as simple as:
 		])
 		.subject("Trying out SMTP2Go")
 		.text_body("Test message")
-		.send() {
+		.send().await {
 			Ok(response) => println!("Message Successfully Sent - {:?}", response),
 			Err(error) => println!("Message failed: Error: {:?}", error)
 		};
