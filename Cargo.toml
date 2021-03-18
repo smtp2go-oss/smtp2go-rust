@@ -14,7 +14,7 @@ include = [
 
 [dependencies]
 
-actix-rt = "*"
+actix-rt = "2.1.0"
 reqwest = { version = "0.11.2", features = [ "json" ] }
 regex = "1.4.5"
 serde = { version = "1.0.124", features = ["derive"] }
