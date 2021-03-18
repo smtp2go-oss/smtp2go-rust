@@ -6,7 +6,7 @@ authors = ["SMTP2GO Developers <devs@smtp2go.com>"]
 description = "SMTP2GO api interface for email sending"
 license = "MIT"
 repository = "https://github.com/smtp2go-oss/smtp2go-rust"
-
+edition = "2018"
 include = [
 	"**/*.rs",
 	"Cargo.toml",
@@ -14,9 +14,8 @@ include = [
 
 [dependencies]
 
-regex = "0.2"
-serde = "0.9"
-serde_derive = "0.9"
-serde_json = "0.9"
-hyper = "0.10.4"
-hyper-native-tls = "0.2.2"
+actix-rt = "*"
+reqwest = { version = "0.11.2", features = [ "json" ] }
+regex = "1.4.5"
+serde = { version = "1.0.124", features = ["derive"] }
+serde_json = "1.0.64"
