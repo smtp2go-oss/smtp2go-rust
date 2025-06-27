@@ -15,7 +15,7 @@ Add this line to your Cargo.toml in the [dependencies] block
 ## Usage
 
 Sign up for a free account [here](https://www.smtp2go.com/pricing) and once logged in navigate
-to the `Settings -> Api Keys` page, create a new API key and make sure the `/email/send` endpoint
+to the `Settings -> API Keys` page, create a new API key and make sure the `/email/send` endpoint
 is enabled:
 
 Once you have an API key you need to export it into the environment where your Rust application is
